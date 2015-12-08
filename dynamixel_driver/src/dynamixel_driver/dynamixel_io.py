@@ -296,7 +296,7 @@ class DynamixelIO(object):
         loVal = int(angle_cw % 256)
         hiVal = int(angle_cw >> 8)
 
-        response = self.write(servo_id, DXL_CW_ANGLE_LIMIT_L, (loVal, hiVal))
+        response = self.write(servo_id, DXL_CW_ANGLE_LIMIT_L, (loVal, hiVal)) # TODO: High
         if response:
             self.exception_on_error(response[4], servo_id, 'setting CW angle limits to %d' % angle_cw)
         return response
@@ -308,9 +308,21 @@ class DynamixelIO(object):
         loVal = int(angle_ccw % 256)
         hiVal = int(angle_ccw >> 8)
 
-        response = self.write(servo_id, DXL_CCW_ANGLE_LIMIT_L, (loVal, hiVal))
+        response = self.write(servo_id, DXL_CCW_ANGLE_LIMIT_L, (loVal, hiVal)) # TODO: High
         if response:
             self.exception_on_error(response[4], servo_id, 'setting CCW angle limits to %d' % angle_ccw)
+        return response
+
+    def set_mt_offset(self, servo_id, mt_offset):
+        """
+        Set the multi-turn offset.
+        """
+        loVal = int(mt_offset % 256)
+        hiVal = int(mt_offset >> 8)
+
+        response = self.write(servo_id, DXL_MT_OFFSET_L, (loVal, hiVal)) # TODO: High
+        if response:
+            self.exception_on_error(response[4], servo_id, 'setting multi-turn offset to %d' % mt_offset)
         return response
 
     def set_resolution_divider(self, servo_id, res_divider):
