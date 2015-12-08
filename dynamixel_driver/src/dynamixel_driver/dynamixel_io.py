@@ -313,6 +313,15 @@ class DynamixelIO(object):
             self.exception_on_error(response[4], servo_id, 'setting CCW angle limits to %d' % angle_ccw)
         return response
 
+    def set_resolution_divider(self, servo_id, res_divider):
+        """
+        Set the resolution divider.
+        """
+        response = self.write(servo_id, DXL_UP_CALIBRATION_L, [res_divider])
+        if response:
+            self.exception_on_error(response[4], servo_id, 'setting resolution divider to %d' % res_divider)
+        return response
+
     def set_angle_limits(self, servo_id, min_angle, max_angle):
         """
         Set the min (CW) and max (CCW) angle of rotation limits.

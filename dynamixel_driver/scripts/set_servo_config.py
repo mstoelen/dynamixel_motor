@@ -72,6 +72,8 @@ if __name__ == '__main__':
                       help='set servo motor minimum voltage limit')
     parser.add_option('--max-voltage-limit', type='int', metavar='MAX_VOLTAGE', dest='max_voltage_limit',
                       help='set servo motor maximum voltage limit')
+    parser.add_option('--resolution-divider', type='int', metavar='RESOLUTION_DIVIDER', dest='resolution_divider',
+                      help='set servo motor resolution divider')
                       
     (options, args) = parser.parse_args(sys.argv)
     print options
@@ -138,6 +140,11 @@ if __name__ == '__main__':
                 if options.max_voltage_limit:
                     print 'Setting maximum voltage limit to %d' % options.max_voltage_limit
                     dxl_io.set_voltage_limit_max(motor_id, options.max_voltage_limit)
+
+                # check if resolution divider needs to be changed
+                if options.resolution_divider is not None:
+                    print 'Setting resolution divider to %d' % options.resolution_divider
+                    dxl_io.set_resolution_divider(motor_id, options.resolution_divider)
                     
                 print 'done'
             else:
