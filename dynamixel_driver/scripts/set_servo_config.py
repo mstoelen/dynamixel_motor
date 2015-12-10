@@ -67,9 +67,13 @@ if __name__ == '__main__':
     parser.add_option('--cw-angle-limit', type='int', metavar='CW_ANGLE', dest='cw_angle_limit',
                       help='set servo motor CW angle limit')
     parser.add_option('--ccw-angle-limit', type='int', metavar='CCW_ANGLE', dest='ccw_angle_limit',
-                      help='set servo motor multi-turn offset')
-    parser.add_option('--mt-offset', type='int', metavar='MT_OFFSET', dest='mt_offset',
                       help='set servo motor CCW angle limit')
+    parser.add_option('--cw-compliance-margin', type='int', metavar='CW_COMP_MARGIN', dest='cw_compliance_margin',
+                      help='set servo motor CW compliance margin')
+    parser.add_option('--ccw-compliance-margin', type='int', metavar='CCW_COMP_MARGIN', dest='ccw_compliance_margin',
+                      help='set servo motor CCW compliance margin')
+    parser.add_option('--mt-offset', type='int', metavar='MT_OFFSET', dest='mt_offset',
+                      help='set servo motor multi-turn offset')
     parser.add_option('--min-voltage-limit', type='int', metavar='MIN_VOLTAGE', dest='min_voltage_limit',
                       help='set servo motor minimum voltage limit')
     parser.add_option('--max-voltage-limit', type='int', metavar='MAX_VOLTAGE', dest='max_voltage_limit',
@@ -133,11 +137,20 @@ if __name__ == '__main__':
                     print 'Setting CCW angle limit to %d' % options.ccw_angle_limit
                     dxl_io.set_angle_limit_ccw(motor_id, options.ccw_angle_limit)
 
+                # check if CW compliance margin needs to be changed
+                if options.cw_compliance_margin is not None:
+                    print 'Setting CW compliance margin to %d' % options.cw_compliance_margin
+                    dxl_io.set_compliance_margin_cw(motor_id, options.cw_compliance_margin)
+                    
+                # check if CCW compliance margin needs to be changed
+                if options.ccw_compliance_margin is not None:
+                    print 'Setting CCW compliance margin to %d' % options.ccw_compliance_margin
+                    dxl_io.set_compliance_margin_ccw(motor_id, options.ccw_compliance_margin)
+
                 # check if multi-turn offset needs to be changed
                 if options.mt_offset is not None:
                     print 'Setting multi-turn offset to %d' % options.mt_offset
                     dxl_io.set_mt_offset(motor_id, options.mt_offset)
-                    
                     
                 # check if minimum voltage limit needs to be changed
                 if options.min_voltage_limit:

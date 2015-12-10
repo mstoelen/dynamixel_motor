@@ -313,6 +313,24 @@ class DynamixelIO(object):
             self.exception_on_error(response[4], servo_id, 'setting CCW angle limits to %d' % angle_ccw)
         return response
 
+    def set_compliance_margin_cw(self, servo_id, margin_cw):
+        """
+        Set the CW compliance margin.
+        """
+        response = self.write(servo_id, DXL_CW_COMPLIANCE_MARGIN, [margin_cw])
+        if response:
+            self.exception_on_error(response[4], servo_id, 'setting CW compliance margin to %d' % margin_cw)
+        return response
+
+    def set_compliance_margin_ccw(self, servo_id, margin_ccw):
+        """
+        Set the CCW compliance margin.
+        """
+        response = self.write(servo_id, DXL_CCW_COMPLIANCE_MARGIN, [margin_ccw])
+        if response:
+            self.exception_on_error(response[4], servo_id, 'setting CCW compliance margin to %d' % margin_ccw)
+        return response
+
     def set_mt_offset(self, servo_id, mt_offset):
         """
         Set the multi-turn offset.
